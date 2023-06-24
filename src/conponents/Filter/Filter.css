@@ -1,0 +1,12 @@
+.filter {
+    background-color: var(--whiteColor);
+    padding: var(--size-16);
+    border-radius: var(--size-8);
+    margin-bottom: var(--size-16);
+}
+
+.filter-heading {
+    font-size: var(--size-32)
+    ;
+    margin-bottom: var(--size-16);
+}
