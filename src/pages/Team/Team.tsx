@@ -40,6 +40,7 @@ const Team = () => {
       title: "POS",
       dataIndex: "position",
       key: "position",
+      sorter: (a, b) => a.position - b.position,
     },
     {
       title: "TEAM",
@@ -51,6 +52,7 @@ const Team = () => {
       title: "PTS",
       dataIndex: "points",
       key: "points",
+      sorter: (a, b) => a.points - b.points,
     },
   ];
 

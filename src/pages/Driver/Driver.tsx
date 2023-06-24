@@ -36,6 +36,7 @@ const Driver = () => {
       title: "POS",
       dataIndex: "position",
       key: "position",
+      sorter: (a, b) => a.position - b.position,
     },
     {
       title: "DRIVER",
