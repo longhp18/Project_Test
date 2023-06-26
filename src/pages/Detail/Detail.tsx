@@ -18,7 +18,6 @@ const Detail = () => {
       );
       const data = await response.json();
       setResultDriverData(data?.MRData?.RaceTable?.Races);
-      console.log(data);
    };
 
    useEffect(() => {
@@ -38,8 +37,6 @@ const Detail = () => {
          race_position: item?.Results[0]?.position,
          points: item?.Results[0]?.points,
       }));
-
-   console.log(data);
 
    const columns: ColumnsType<any> = [
       {
@@ -61,20 +58,29 @@ const Detail = () => {
          title: "RACE POSITION",
          dataIndex: "race_position",
          key: "race_position",
+         sorter: (a, b) => a.race_position - b.race_position,
       },
       {
          title: "PTS",
          dataIndex: "points",
          key: "points",
+         sorter: (a, b) => a.points - b.points,
       },
    ];
+
+   // const validateDriver = data[0]?.driver
+   //    ? data[0]?.driver
+   //    : "No information available";
 
    return (
       <>
          <TableList
             columns={columns}
             data={data}
-            title={`${yearFilter && yearFilter}: ${data && data[0]?.driver}`}
+            title={`${yearFilter && yearFilter}: ${
+               (data === undefined && "No information available") ||
+               (data && data[0]?.driver)
+            }`}
          />
       </>
    );

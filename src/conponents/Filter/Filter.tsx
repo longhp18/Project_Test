@@ -1,19 +1,39 @@
 import "./Filter.css";
+import { useEffect } from "react";
 import { HomeOutlined } from "@ant-design/icons";
 import { Col, Row, Form, DatePicker, Button } from "antd";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 import type { DatePickerProps } from "antd";
 import { getDataApi } from "../../redux/filterSlice";
-import { useNavigate } from "react-router-dom";
+import { Await, useLocation, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const Filter: React.FC = () => {
    const [form] = Form.useForm();
    const navigate = useNavigate();
+   const location = useLocation();
+   const pathName = location.pathname;
+   console.log(location);
+
    const dispatch = useDispatch<AppDispatch>();
-   const handleYearFilter: DatePickerProps["onChange"] = (date, dateString) => {
-      dispatch(getDataApi(dateString));
+
+   const handleYearFilter: DatePickerProps["onChange"] = async (
+      date,
+      dateString
+   ) => {
+      await dispatch(getDataApi(dateString));
+      const handleNavigate = async () => {
+         const currentPath = await pathName;
+         const newYear = await dateString;
+         const newPath = await currentPath.replace(/\/\d+$/, `/${newYear}`);
+         await navigate(newPath);
+      };
+      await handleNavigate();
    };
+
+   const { dataApi } = useSelector((state: RootState) => state.rootReducer);
 
    const routeHome = async () => {
       await dispatch(getDataApi(""));
