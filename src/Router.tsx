@@ -15,11 +15,11 @@ const Router: React.FC = () => {
          <Filter />
          <Routes>
             <Route path="/driver" Component={Driver} />
-            <Route path="/" Component={TableResult} />
-            <Route path="/race" Component={TableResult} />
+            <Route index path="/" Component={TableResult} />
+            <Route index path="/race" Component={TableResult} />
             <Route path="/team" Component={Team} />
             <Route path="/dhl" Component={Dhl} />
-            <Route path="/detail/:id/:yearFilter" Component={Detail} />
+            <Route path="/driver/detail/:id/:yearFilter/" Component={Detail} />
          </Routes>
       </BrowserRouter>
    );

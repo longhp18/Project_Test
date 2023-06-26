@@ -1,22 +1,39 @@
-import { Table } from "antd";
+import { Space, Spin, Table } from "antd";
+import { SlackOutlined } from "@ant-design/icons";
 
 import "./TableList.css";
 
 const TableList = (props: any) => {
-   const TableResultContent = (
-      <div className="table-result">
-         <div className="table-result-title">{props.title}</div>
-
-         <Table
-            columns={props.columns}
-            dataSource={props.data}
-            rowKey={props.rowKey}
-            loading={props.loading}
-         />
-      </div>
+   return (
+      <>
+         <div className="table-result">
+            <Space className="table-result-title">
+        
+               {props.loading ? (
+                  <Spin
+                     indicator={
+                        <SlackOutlined
+                           spin
+                           style={{ fontSize: 20, color: "white" }}
+                        />
+                     }
+                  />
+               ) : (
+                  props.title
+               )}
+            </Space>
+            <Table
+               columns={props.columns}
+               dataSource={props.data}
+               rowKey={props.rowKey}
+               loading={{
+                  spinning: props.loading,
+                  indicator: <SlackOutlined spin style={{ fontSize: 24 }} />,
+               }}
+            />
+         </div>
+      </>
    );
-
-   return <>{TableResultContent}</>;
 };
 
 export default TableList;

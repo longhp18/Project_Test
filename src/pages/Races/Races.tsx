@@ -12,22 +12,30 @@ import { useNavigate } from "react-router-dom";
 const Race = () => {
    const [raceData, setRaceData] = useState<any>();
    const [yearFilter, setYearFilter] = useState<any>("");
+   const [loading, setLoading] = useState<any>(false);
 
+   const currentYear = dayjs().format("YYYY");
    const { dataApi } = useSelector((state: RootState) => state.rootReducer);
 
    const navigate = useNavigate();
 
    const fetchYearResult = async (yearFilter: any) => {
+      await setLoading(true);
       const response = await fetch(
          `https://ergast.com/api/f1/${yearFilter}/results/1.json`
       );
       const data = await response.json();
-      await setRaceData(data?.MRData?.RaceTable?.Races);
+      if (data) {
+         await setRaceData(data?.MRData?.RaceTable?.Races);
+         await setTimeout(() => {
+            setLoading(false);
+         }, 300);
+      }
    };
 
    useEffect(() => {
-      setYearFilter(dataApi);
-      fetchYearResult(yearFilter);
+      setYearFilter(dataApi ? dataApi : currentYear);
+      fetchYearResult(yearFilter ? yearFilter : currentYear);
    }, [dataApi, yearFilter]);
 
    const columns: ColumnsType<any> = [
@@ -48,7 +56,7 @@ const Race = () => {
          render: (text, record, index) => (
             <a
                onClick={() =>
-                  navigate(`/detail/${record.driverId}/${yearFilter}`)
+                  navigate(`/driver/detail/${record.driverId}/${yearFilter}`)
                }
             >
                {text}
@@ -98,6 +106,7 @@ const Race = () => {
             columns={columns}
             data={data}
             rowKey={yearFilter}
+            loading={loading}
          />
       </>
    );

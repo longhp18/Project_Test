@@ -1,29 +1,30 @@
 :root {
-    --grayLightColor: #edf2f4;
-    --grayColor: #dee2e6;
-    --darkColor: #202020;
-    --whiteColor: #ffffff;
-    --primaryColor: #2ec4b6;
+   --grayLightColor: #edf2f4;
+   --grayColor: #dee2e6;
+   --darkColor: #202020;
+   --whiteColor: #ffffff;
+   --primaryColor: #2ec4b6;
+   --blueColor: #1677ff;
 
-    --size-8: .8rem;
-    --size-16: 1.6rem;
-    --size-32: 3.2rem;
+   --size-8: 0.8rem;
+   --size-16: 1.6rem;
+   --size-32: 3.2rem;
 }
 
 .mr-16 {
-    margin-right: var(--size-16);
+   margin-right: var(--size-16);
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
 }
 
 body {
-    background-color: var(--grayLightColor);
+   background-color: var(--grayLightColor);
 }
 
 html {
-    font-size: 62.5%;
+   font-size: 62.5%;
 }

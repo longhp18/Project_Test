@@ -3,7 +3,7 @@ import type { ColumnsType } from "antd/es/table";
 import "./Driver.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { SlackOutlined } from "@ant-design/icons";
 import { RootState } from "../../redux/store";
 
 import TableList from "../../conponents/Table/TableList";
@@ -18,23 +18,28 @@ const Driver = () => {
    const { dataApi } = useSelector((state: RootState) => state.rootReducer);
 
    const navigate = useNavigate();
-
+   const currentYear = dayjs().format("YYYY");
    const fetchDriverStanding = async (yearFilter: any) => {
+      setLoading(true);
       const response = await fetch(
          `https://ergast.com/api/f1/${yearFilter}/driverStandings.json`
       );
       const data = await response.json();
 
-      await setDriverStandingData(
-         data?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings
-      );
+      if (data) {
+         setTimeout(async () => {
+            await setDriverStandingData(
+               data?.MRData?.StandingsTable?.StandingsLists[0]?.DriverStandings
+            );
+            await setLoading(false);
+         }, 300);
+      }
    };
 
    useEffect(() => {
-      setYearFilter(dataApi);
-      fetchDriverStanding(yearFilter);
-      setLoading(false);
-   }, [dataApi, yearFilter, dayjs]);
+      setYearFilter(dataApi ? dataApi : currentYear);
+      fetchDriverStanding(yearFilter ? yearFilter : currentYear);
+   }, [dataApi, yearFilter, dayjs, currentYear]);
 
    const columns: ColumnsType<any> = [
       {
@@ -50,7 +55,7 @@ const Driver = () => {
          render: (text, record, index) => (
             <a
                onClick={() =>
-                  navigate(`/detail/${record.driverId}/${yearFilter}`)
+                  navigate(`/driver/detail/${record.driverId}/${yearFilter}`)
                }
             >
                {text}
@@ -88,8 +93,6 @@ const Driver = () => {
          car: driverStanding?.Constructors[0]?.name,
          points: driverStanding?.points,
       }));
-
-   console.log(dataDriverStanding);
 
    return (
       <>

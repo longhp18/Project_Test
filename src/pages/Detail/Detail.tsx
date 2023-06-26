@@ -5,31 +5,30 @@ import TableList from "../../conponents/Table/TableList";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 
-import {
-   LineChart,
-   XAxis,
-   YAxis,
-   CartesianGrid,
-   Tooltip,
-   Legend,
-   Line,
-} from "recharts";
-
-import { Col, Row } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const Detail = () => {
    const params = useParams();
    const driverId = params.id;
    const yearFilter = params.yearFilter;
+   const [currentYearFilter, setCurrentYearFilter] = useState<any>(yearFilter);
+   const [loading, setLoading] = useState<any>(false);
 
    const [resultDriverData, setResultDriverData] = useState<any>();
 
    const fetchDriverStanding = async (yearFilter: any, driverId: any) => {
+      await setLoading(true);
       const response = await fetch(
          `https://ergast.com/api/f1/${yearFilter}/drivers/${driverId}/results.json`
       );
       const data = await response.json();
-      setResultDriverData(data?.MRData?.RaceTable?.Races);
+      if (data) {
+         setTimeout(async () => {
+            await setResultDriverData(data?.MRData?.RaceTable?.Races);
+            await setLoading(false);
+         }, 300);
+      }
    };
 
    useEffect(() => {
@@ -82,22 +81,14 @@ const Detail = () => {
       },
    ];
 
-   // const validateDriver = data[0]?.driver
-   //    ? data[0]?.driver
-   //    : "No information available";
-
    return (
       <>
-         <Col>
-            <TableList
-               columns={columns}
-               data={data}
-               title={`${yearFilter && yearFilter}: ${
-                  (data === undefined && "No information available") ||
-                  (data && data[0]?.driver)
-               }`}
-            />
-         </Col>
+         <TableList
+            columns={columns}
+            data={data}
+            title={`${yearFilter && yearFilter}: ${data && data[0]?.driver}`}
+            loading={loading}
+         />
       </>
    );
 };
