@@ -5,6 +5,18 @@ import TableList from "../../conponents/Table/TableList";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 
+import {
+   LineChart,
+   XAxis,
+   YAxis,
+   CartesianGrid,
+   Tooltip,
+   Legend,
+   Line,
+} from "recharts";
+
+import { Col, Row } from "antd";
+
 const Detail = () => {
    const params = useParams();
    const driverId = params.id;
@@ -37,6 +49,8 @@ const Detail = () => {
          race_position: item?.Results[0]?.position,
          points: item?.Results[0]?.points,
       }));
+
+   console.log(data);
 
    const columns: ColumnsType<any> = [
       {
@@ -74,14 +88,16 @@ const Detail = () => {
 
    return (
       <>
-         <TableList
-            columns={columns}
-            data={data}
-            title={`${yearFilter && yearFilter}: ${
-               (data === undefined && "No information available") ||
-               (data && data[0]?.driver)
-            }`}
-         />
+         <Col>
+            <TableList
+               columns={columns}
+               data={data}
+               title={`${yearFilter && yearFilter}: ${
+                  (data === undefined && "No information available") ||
+                  (data && data[0]?.driver)
+               }`}
+            />
+         </Col>
       </>
    );
 };
