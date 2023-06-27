@@ -1,6 +1,7 @@
 {
+  "homepage": "https://longhp18.github.io/Project_Test/",
   "name": "crawling_f1_result",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
