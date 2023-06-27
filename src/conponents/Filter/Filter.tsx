@@ -15,8 +15,7 @@ const Filter: React.FC = () => {
    const pathName = location.pathname;
    const pathNameSplit = pathName.split("/");
    const pathDetail = `/${pathNameSplit[1]}/${pathNameSplit[2]}`;
-   console.log(pathNameSplit);
-   console.log(location);
+
 
    const dispatch = useDispatch<AppDispatch>();
 

@@ -12,9 +12,7 @@ const dataReducer = createSlice({
   initialState,
   reducers: {
     getDataApi: (state: RootState, action: PayloadAction<any>) => {
-      // console.log('reducer', action.payload)
       state.dataApi = action.payload;
-      console.log(action.payload);
     },
   },
 });

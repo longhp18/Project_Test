@@ -58,7 +58,6 @@ const Detail = () => {
          points: item?.Results[0]?.points,
       }));
 
-   console.log(data);
 
    const columns: ColumnsType<any> = [
       {

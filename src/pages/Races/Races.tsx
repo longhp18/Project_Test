@@ -91,8 +91,6 @@ const Race = () => {
       },
    ];
 
-   console.log(raceData);
-
    const data =
       raceData &&
       raceData.map((race: any) => ({
