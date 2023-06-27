@@ -3,7 +3,6 @@ import type { ColumnsType } from "antd/es/table";
 import "./Driver.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SlackOutlined } from "@ant-design/icons";
 import { RootState } from "../../redux/store";
 
 import TableList from "../../conponents/Table/TableList";

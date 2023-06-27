@@ -8,6 +8,17 @@ import dayjs from "dayjs";
 import { RootState } from "../../redux/store";
 import TableList from "../../conponents/Table/TableList";
 import { useNavigate } from "react-router-dom";
+import { Row } from "antd";
+
+import {
+   BarChart,
+   Bar,
+   XAxis,
+   YAxis,
+   CartesianGrid,
+   Tooltip,
+   Legend,
+} from "recharts";
 
 const Race = () => {
    const [raceData, setRaceData] = useState<any>();

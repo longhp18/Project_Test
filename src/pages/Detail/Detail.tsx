@@ -5,14 +5,23 @@ import TableList from "../../conponents/Table/TableList";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import {
+   BarChart,
+   Bar,
+   XAxis,
+   YAxis,
+   CartesianGrid,
+   Tooltip,
+   Legend,
+   LabelList,
+} from "recharts";
+import { Row } from "antd";
 
 const Detail = () => {
    const params = useParams();
    const driverId = params.id;
    const yearFilter = params.yearFilter;
-   const [currentYearFilter, setCurrentYearFilter] = useState<any>(yearFilter);
+
    const [loading, setLoading] = useState<any>(false);
 
    const [resultDriverData, setResultDriverData] = useState<any>();
@@ -81,6 +90,9 @@ const Detail = () => {
       },
    ];
 
+   const maxPoints =
+      data && Math.max(...data.map((item: any) => parseInt(item.points)));
+
    return (
       <>
          <TableList
@@ -89,6 +101,17 @@ const Detail = () => {
             title={`${yearFilter && yearFilter}: ${data && data[0]?.driver}`}
             loading={loading}
          />
+
+         <Row className="row-chart">
+            <BarChart width={1000} height={600} data={data}>
+               <CartesianGrid strokeDasharray="3 3" />
+               <XAxis dataKey="grand_prix" />
+               <YAxis domain={[0, maxPoints]} />
+               <Tooltip />
+               <Legend />
+               <Bar dataKey="points" fill="#82ca9d" name="Points" />
+            </BarChart>
+         </Row>
       </>
    );
 };

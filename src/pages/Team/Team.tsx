@@ -7,8 +7,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 import TableList from "../../conponents/Table/TableList";
-import { Spin } from "antd";
+import {
+   BarChart,
+   Bar,
+   XAxis,
+   YAxis,
+   CartesianGrid,
+   Tooltip,
+   Legend,
+} from "recharts";
 import dayjs from "dayjs";
+import { Row } from "antd";
 
 const Team = () => {
    const [teamData, setTeamData] = useState<any>();
@@ -69,7 +78,9 @@ const Team = () => {
          points: team.points,
       }));
 
-   console.log(dataTeam);
+   const maxPoints =
+      dataTeam &&
+      Math.max(...dataTeam.map((item: any) => parseInt(item.points)));
 
    const tableContent = (
       <TableList
@@ -81,7 +92,26 @@ const Team = () => {
       />
    );
 
-   return <>{tableContent}</>;
+   return (
+      <>
+         {tableContent}
+         <Row className="row-chart">
+            <BarChart width={1000} height={600} data={dataTeam}>
+               <CartesianGrid strokeDasharray="3 3" />
+               <XAxis dataKey={`team`} />
+               <YAxis domain={[0, maxPoints]} />
+               <Tooltip />
+               <Legend />
+               <Bar
+                  dataKey="points"
+                  fill="#82ca9d"
+                  name="Points"
+                  height={300}
+               />
+            </BarChart>
+         </Row>
+      </>
+   );
 };
 
 export default Team;
