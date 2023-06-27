@@ -16,12 +16,11 @@ const Filter: React.FC = () => {
    const pathNameSplit = pathName.split("/");
    const pathDetail = `/${pathNameSplit[1]}/${pathNameSplit[2]}`;
 
-
    const dispatch = useDispatch<AppDispatch>();
 
    const handleYearFilter: DatePickerProps["onChange"] = async (
-      date,
-      dateString
+      _date,
+      dateString: string
    ) => {
       await dispatch(getDataApi(dateString));
       const handleNavigate = async () => {

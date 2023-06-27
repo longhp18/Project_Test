@@ -47,7 +47,7 @@ const Dhl = () => {
          title: "DRIVER",
          dataIndex: "driver",
          key: "driver",
-         render: (text, record, index) => (
+         render: (text, record, _index) => (
             <a
                onClick={() =>
                   navigate(`/driver/detail/${record.driverId}/${yearFilter}`)

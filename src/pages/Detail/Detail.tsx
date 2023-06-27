@@ -13,7 +13,6 @@ import {
    CartesianGrid,
    Tooltip,
    Legend,
-   LabelList,
 } from "recharts";
 import { Row } from "antd";
 
@@ -57,7 +56,6 @@ const Detail = () => {
          race_position: item?.Results[0]?.position,
          points: item?.Results[0]?.points,
       }));
-
 
    const columns: ColumnsType<any> = [
       {
