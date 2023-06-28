@@ -1,4 +1,7 @@
 # Project_Test
+- Framework:  ReactJS
+- FrameworkUI:  Ant Design
+- Chart: Rechart
 # Clone project:
 - Git Clone https://github.com/longhp18/Project_Test.git
 # Build project:
